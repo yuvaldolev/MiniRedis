@@ -23,7 +23,10 @@ async fn process(socket: TcpStream, db: Arc<Mutex<HashMap<String, Bytes>>>) {
     let mut connection = Connection::new(socket);
 
     while let Some(frame) = connection.read_frame().await.unwrap() {
-        let response = match Command::from_frame(frame).unwrap() {
+        let command = Command::from_frame(frame).unwrap();
+        println!("COMMAND: {:?}", command);
+
+        let response = match command {
             Command::Get(cmd) => {
                 let db = db.lock().unwrap();
                 if let Some(value) = db.get(cmd.key()) {
