@@ -1,8 +1,10 @@
 use std::{collections::HashMap, sync::{Mutex, Arc}};
 
 use bytes::Bytes;
-use mini_redis::{Connection, Command, Frame};
+use mini_redis::{Command, Frame};
 use tokio::net::{TcpListener, TcpStream};
+
+use miniredis::Connection;
 
 #[tokio::main]
 async fn main() {
